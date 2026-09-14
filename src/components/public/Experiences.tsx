@@ -10,7 +10,7 @@ const experiences = [
     titleMr: 'फॅमिली रेस्टॉरंट',
     descEn: 'Delicious Veg & Non-Veg Satara Specialties',
     descMr: 'अस्सल शाकाहारी व मांसाहारी मेजवानी',
-    image: 'https://1qlik.com/Vendor_img/IMG_20241021_151952.jpg',
+    image: 'https://images.pexels.com/photos/29819295/pexels-photo-29819295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
   },
   {
     icon: Wine,

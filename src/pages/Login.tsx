@@ -43,7 +43,7 @@ export function Login() {
     <div className="min-h-screen relative flex items-center justify-center px-4 py-8 bg-stone-950 text-stone-100">
       <div className="absolute inset-0">
         <img
-          src="https://1qlik.com/Vendor_img/1729504904868.jpg"
+          src="https://images.pexels.com/photos/14024976/pexels-photo-14024976.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
           alt="Resort background"
           className="w-full h-full object-cover opacity-20"
         />

@@ -38,12 +38,12 @@ export const mockMenuItems: MenuItem[] = [
 ];
 
 export const mockGalleryImages: GalleryImage[] = [
-  { id: 'g1', url: 'https://1qlik.com/Vendor_img/1729504904868.jpg', category: 'Resort & Garden', sort_order: 1, created_at: '' },
-  { id: 'g2', url: 'https://1qlik.com/Vendor_img/IMG_20241021_151913.jpg', category: 'Property', sort_order: 1, created_at: '' },
-  { id: 'g3', url: 'https://1qlik.com/Vendor_img/IMG_20241021_151952.jpg', category: 'Restaurant', sort_order: 1, created_at: '' },
-  { id: 'g4', url: 'https://1qlik.com/Vendor_img/IMG_20241021_151927.jpg', category: 'Events', sort_order: 1, created_at: '' },
-  { id: 'g5', url: 'https://1qlik.com/Vendor_img/IMG_20241021_151938.jpg', category: 'Evening Ambience', sort_order: 1, created_at: '' },
-  { id: 'g6', url: 'https://1qlik.com/Vendor_img/IMG_20241021_152004.jpg', category: 'Parking', sort_order: 1, created_at: '' },
+  { id: 'g1', url: 'https://images.pexels.com/photos/14024976/pexels-photo-14024976.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', category: 'Resort & Garden', sort_order: 1, created_at: '' },
+  { id: 'g2', url: 'https://images.pexels.com/photos/38406260/pexels-photo-38406260.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', category: 'Property', sort_order: 1, created_at: '' },
+  { id: 'g3', url: 'https://images.pexels.com/photos/29819295/pexels-photo-29819295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', category: 'Restaurant', sort_order: 1, created_at: '' },
+  { id: 'g4', url: 'https://images.pexels.com/photos/31217382/pexels-photo-31217382.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', category: 'Events', sort_order: 1, created_at: '' },
+  { id: 'g5', url: 'https://images.pexels.com/photos/2291619/pexels-photo-2291619.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', category: 'Evening Ambience', sort_order: 1, created_at: '' },
+  { id: 'g6', url: 'https://images.pexels.com/photos/9716297/pexels-photo-9716297.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', category: 'Parking', sort_order: 1, created_at: '' },
   { id: 'g7', url: 'https://images.pexels.com/photos/14024976/pexels-photo-14024976.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', category: 'Resort & Garden', sort_order: 2, created_at: '' },
   { id: 'g8', url: 'https://images.pexels.com/photos/14723039/pexels-photo-14723039.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', category: 'Resort & Garden', sort_order: 3, created_at: '' },
   { id: 'g9', url: 'https://images.pexels.com/photos/38406260/pexels-photo-38406260.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', category: 'Property', sort_order: 2, created_at: '' },
@@ -165,10 +165,10 @@ function generateMockBills(): Bill[] {
 export const mockBills: Bill[] = generateMockBills();
 
 export const aboutSliderImages = [
-  'https://1qlik.com/Vendor_img/1729504904868.jpg',
-  'https://1qlik.com/Vendor_img/IMG_20241021_151913.jpg',
-  'https://1qlik.com/Vendor_img/IMG_20241021_151952.jpg',
-  'https://1qlik.com/Vendor_img/IMG_20241021_151927.jpg',
-  'https://1qlik.com/Vendor_img/IMG_20241021_151938.jpg',
-  'https://1qlik.com/Vendor_img/IMG_20241021_152004.jpg',
+  'https://images.pexels.com/photos/14024976/pexels-photo-14024976.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  'https://images.pexels.com/photos/38406260/pexels-photo-38406260.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  'https://images.pexels.com/photos/29819295/pexels-photo-29819295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  'https://images.pexels.com/photos/31217382/pexels-photo-31217382.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  'https://images.pexels.com/photos/2291619/pexels-photo-2291619.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  'https://images.pexels.com/photos/9716297/pexels-photo-9716297.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
 ];

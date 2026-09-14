@@ -45,7 +45,7 @@ export function AdminOverview() {
       {/* Top Banner Card */}
       <div className="rounded-2xl bg-stone-900 border border-amber-400/30 p-6 shadow-2xl relative overflow-hidden">
         <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-15 pointer-events-none">
-          <img src="https://1qlik.com/Vendor_img/1729504904868.jpg" alt="" className="w-full h-full object-cover" />
+          <img src="https://images.pexels.com/photos/14024976/pexels-photo-14024976.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="" className="w-full h-full object-cover" />
         </div>
         <div className="relative z-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider mb-2">
