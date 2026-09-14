@@ -58,6 +58,18 @@ const NAV_GROUPS = [
   },
 ];
 
+const QUICK_NAV_ITEMS = [
+  { id: 'overview', label: 'Overview', icon: LayoutDashboard },
+  { id: 'menu', label: 'Menu', icon: Utensils },
+  { id: 'specials', label: 'Specials', icon: Star },
+  { id: 'new-bill', label: 'New POS', icon: Store },
+  { id: 'bills', label: 'Bill History', icon: Receipt },
+  { id: 'revenue', label: 'Revenue', icon: BarChart3 },
+  { id: 'customers', label: 'Customers', icon: Users },
+  { id: 'staff', label: 'Staff', icon: UserCog },
+  { id: 'settings', label: 'Settings', icon: Settings },
+];
+
 interface AdminLayoutProps {
   children: React.ReactNode;
   activePage: string;
@@ -80,21 +92,28 @@ export function AdminLayout({ children, activePage, onNavigate }: AdminLayoutPro
   };
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100 flex">
+    <div className="min-h-screen bg-stone-950 text-stone-100 flex flex-col lg:flex-row">
+      
+      {/* SIDEBAR DRAWER */}
       <aside
-        className={`fixed lg:sticky top-0 left-0 z-40 h-screen w-64 bg-stone-900 border-r border-amber-400/20 text-stone-200 flex flex-col transition-transform duration-300 ${
+        className={`fixed lg:sticky top-0 left-0 z-40 h-[100dvh] w-64 bg-stone-900 border-r border-amber-400/20 text-stone-200 flex flex-col transition-transform duration-300 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
-        <div className="p-5 border-b border-amber-400/10 flex items-center gap-3">
-          <img src="/logo.png" alt="Aamrai Resort Logo" className="w-8 h-8 object-contain rounded-full bg-white p-0.5 shadow border border-amber-400/50" />
-          <div className="leading-none">
-            <span className="font-serif text-xl font-bold text-amber-100">Aamrai Resort</span>
-            <p className="text-amber-300/70 text-[10px] tracking-wide mt-0.5 uppercase font-semibold">Admin Dashboard</p>
+        <div className="p-4 sm:p-5 border-b border-amber-400/10 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img src="/logo.png" alt="Aamrai Resort Logo" className="w-8 h-8 object-contain rounded-full bg-white p-0.5 shadow border border-amber-400/50" />
+            <div className="leading-none">
+              <span className="font-serif text-xl font-bold text-amber-100">Aamrai Resort</span>
+              <p className="text-amber-300/70 text-[10px] tracking-wide mt-0.5 uppercase font-semibold">Admin Dashboard</p>
+            </div>
           </div>
+          <button onClick={() => setSidebarOpen(false)} className="lg:hidden p-1.5 text-stone-400 hover:text-stone-100 rounded-lg hover:bg-stone-800">
+            <X size={20} />
+          </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-5">
+        <nav className="flex-1 overflow-y-auto py-3 px-3 space-y-4">
           {NAV_GROUPS.map((group) => (
             <div key={group.label}>
               <p className="text-amber-400/70 text-[10px] uppercase font-bold tracking-widest px-3 mb-1.5">{group.label}</p>
@@ -117,41 +136,72 @@ export function AdminLayout({ children, activePage, onNavigate }: AdminLayoutPro
           ))}
         </nav>
 
-        <div className="p-3 border-t border-amber-400/10">
+        <div className="p-3 border-t border-amber-400/10 bg-stone-950">
           <button
             onClick={handleSignOut}
-            className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold text-red-400 hover:bg-red-500/20 transition-all"
+            className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-bold text-red-400 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 transition-all"
           >
             <LogOut size={16} /> Logout
           </button>
         </div>
       </aside>
 
+      {/* BACKDROP FOR MOBILE SIDEBAR */}
       {sidebarOpen && (
         <div className="fixed inset-0 z-30 bg-stone-950/80 backdrop-blur-sm lg:hidden" onClick={() => setSidebarOpen(false)} />
       )}
 
-      <div className="flex-1 min-w-0 flex flex-col">
-        <header className="bg-stone-900/90 backdrop-blur-md border-b border-amber-400/20 sticky top-0 z-20">
-          <div className="px-4 py-3.5 flex items-center justify-between">
+      {/* MAIN CONTAINER */}
+      <div className="flex-1 min-w-0 flex flex-col min-h-screen">
+        
+        {/* HEADER NAVBAR */}
+        <header className="bg-stone-900/95 backdrop-blur-md border-b border-amber-400/20 sticky top-0 z-20 shadow-xl">
+          <div className="px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 rounded-lg bg-stone-800 text-amber-400 border border-amber-400/30">
+              <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 rounded-xl bg-stone-800 text-amber-400 border border-amber-400/30">
                 <MenuIcon size={20} />
               </button>
               <div>
-                <p className="font-serif text-xl text-amber-100 font-bold">{getGreeting()}, Admin</p>
-                <p className="text-xs text-stone-400">Management & Billing Operations</p>
+                <p className="font-serif text-lg sm:text-xl text-amber-100 font-bold">{getGreeting()}, Admin</p>
+                <p className="text-[11px] sm:text-xs text-stone-400">Management & Operations</p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            
+            <div className="flex items-center gap-2 sm:gap-3">
               <div className="text-right hidden sm:block">
                 <p className="text-xs font-bold text-amber-100">{user?.name}</p>
                 <p className="text-[10px] text-amber-300/70 uppercase font-semibold">Administrator</p>
               </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/30">
+              <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/30">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" /> LIVE
               </div>
+              
+              {/* Prominent Header Logout Button */}
+              <button
+                onClick={handleSignOut}
+                className="p-2 rounded-full bg-stone-800 text-red-400 border border-red-500/30 hover:bg-red-500/20 transition-colors"
+                title="Logout"
+              >
+                <LogOut size={18} />
+              </button>
             </div>
+          </div>
+
+          {/* MOBILE SCROLLABLE QUICK NAV BAR (LIKE COUNTER POS) */}
+          <div className="lg:hidden flex items-center gap-1.5 px-3 pb-2.5 pt-1 overflow-x-auto scrollbar-hide border-t border-amber-400/10 bg-stone-950">
+            {QUICK_NAV_ITEMS.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => handleNavigate(item.id)}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+                  activePage === item.id
+                    ? 'bg-amber-400 text-stone-950 shadow-md'
+                    : 'text-stone-300 bg-stone-900 border border-amber-400/20'
+                }`}
+              >
+                <item.icon size={14} /> {item.label}
+              </button>
+            ))}
           </div>
         </header>
 
