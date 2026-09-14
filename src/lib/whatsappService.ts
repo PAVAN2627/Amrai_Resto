@@ -34,7 +34,9 @@ export async function sendAutoWhatsAppBillPDF(
   const tableStr = bill.table_number ? `Table No: ${bill.table_number}\n` : '';
 
   // Dynamic origin URL (Vercel deployment URL or localhost)
-  const appBaseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://aamrairesort.com';
+  const appBaseUrl = typeof window !== 'undefined' && window.location.origin.includes('http')
+    ? window.location.origin
+    : 'https://amrairesto.vercel.app';
   const billPdfUrl = `${appBaseUrl}/bill/${bill.bill_number}`;
 
   const messageText = `*AAMRAI RESORT - OFFICIAL BILL RECEIPT*\n\nBill No: ${bill.bill_number}\nDate: ${dateStr} ${timeStr}\nCustomer: ${bill.customer_name} (${bill.customer_mobile})\n${tableStr}${itemsText}Subtotal: Rs. ${bill.subtotal}\n${taxDetails}*GRAND TOTAL: Rs. ${bill.total}*\nPayment Mode: ${bill.payment_method.toUpperCase()}\n\nView / Download Digital PDF Bill:\n${billPdfUrl}\n\nThank you for visiting Aamrai Resort!\nNH4 Highway, Shendre, Satara\nPhone: 7030906868 / 7030926868`;

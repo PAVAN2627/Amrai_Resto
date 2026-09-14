@@ -11,10 +11,10 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [lang, setLangState] = useState<Language>('mr');
+  const [lang, setLangState] = useState<Language>('en');
 
   const setLang = (l: Language) => setLangState(l);
-  const toggleLang = () => setLangState((prev) => (prev === 'mr' ? 'en' : 'mr'));
+  const toggleLang = () => setLangState((prev) => (prev === 'en' ? 'mr' : 'en'));
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, toggleLang }}>
@@ -27,7 +27,7 @@ export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (!context) {
     // Fallback if used outside provider
-    return { lang: 'mr' as Language, setLang: () => {}, toggleLang: () => {} };
+    return { lang: 'en' as Language, setLang: () => {}, toggleLang: () => {} };
   }
   return context;
 };
