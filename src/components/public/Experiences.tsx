@@ -112,12 +112,12 @@ export function Experiences() {
 
                 <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className={`font-serif text-xl font-bold mb-1.5 transition-colors ${
+                    <h3 className={`font-serif text-lg sm:text-xl font-bold mb-3 transition-colors ${
                       isDark ? 'text-amber-100 group-hover:text-amber-300' : 'text-stone-900 group-hover:text-amber-800'
                     }`}>
                       {lang === 'mr' ? exp.titleMr : exp.titleEn}
                     </h3>
-                    <p className={`text-xs sm:text-sm leading-relaxed ${
+                    <p className={`text-sm sm:text-base leading-relaxed ${
                       isDark ? 'text-stone-300/70' : 'text-stone-600'
                     }`}>
                       {lang === 'mr' ? exp.descMr : exp.descEn}

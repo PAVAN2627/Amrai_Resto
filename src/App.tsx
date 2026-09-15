@@ -3,11 +3,13 @@ import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { ToastProvider } from '@/context/ToastContext';
 import { LanguageProvider } from '@/context/LanguageContext';
 import { ThemeProvider } from '@/context/ThemeContext';
+import { NotificationProvider } from '@/context/NotificationContext';
 import { PublicSite } from '@/pages/PublicSite';
 import { Login } from '@/pages/Login';
 import { CounterPOS } from '@/pages/CounterPOS';
 import { AdminDashboard } from '@/pages/AdminDashboard';
 import { PublicBillView } from '@/pages/PublicBillView';
+import { TableOrderPage } from '@/pages/TableOrderPage';
 import { TreePalm } from 'lucide-react';
 
 function ProtectedRoute({ children, role }: { children: React.ReactNode; role?: 'admin' | 'counter' }) {
@@ -39,6 +41,7 @@ function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/bill/:billId" element={<PublicBillView />} />
       <Route path="/bills/:billId" element={<PublicBillView />} />
+      <Route path="/table/:tableId" element={<TableOrderPage />} />
       <Route path="/counter" element={<ProtectedRoute><CounterPOS /></ProtectedRoute>} />
       <Route path="/admin" element={<ProtectedRoute role="admin"><AdminDashboard /></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
@@ -52,9 +55,11 @@ function App() {
       <ToastProvider>
         <LanguageProvider>
           <ThemeProvider>
-            <BrowserRouter>
-              <AppRoutes />
-            </BrowserRouter>
+            <NotificationProvider>
+              <BrowserRouter>
+                <AppRoutes />
+              </BrowserRouter>
+            </NotificationProvider>
           </ThemeProvider>
         </LanguageProvider>
       </ToastProvider>

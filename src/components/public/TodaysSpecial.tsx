@@ -100,7 +100,7 @@ export function TodaysSpecial() {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5 mt-3"
+                    className="w-full py-2.5 rounded-md bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5 mt-3"
                   >
                     <MessageCircle size={14} /> {lang === 'mr' ? 'ऑर्डर चौकशी' : 'Order Enquiry'}
                   </a>

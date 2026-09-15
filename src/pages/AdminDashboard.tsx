@@ -6,6 +6,8 @@ import { RevenueAnalytics, BillsList, PopularDishes } from '@/components/admin/A
 import { Customers } from '@/components/admin/Customers';
 import { GalleryManagement, EventsAdmin, SettingsAdmin, SimpleAdmin } from '@/components/admin/AdminPages';
 import { StaffManagement } from '@/components/admin/StaffManagement';
+import { TableManagement } from '@/components/admin/TableManagement';
+import { TableOrderDashboard } from '@/components/admin/TableOrderDashboard';
 import { NewBill } from '@/components/counter/NewBill';
 import { BillHistory } from '@/components/counter/BillHistory';
 import { Leaf, Bed, FileText, CreditCard } from 'lucide-react';
@@ -28,6 +30,8 @@ export function AdminDashboard() {
       {page === 'customers' && <Customers />}
       {page === 'events' && <EventsAdmin />}
       {page === 'lodging' && <SimpleAdmin title="Rooms / Enquiries" icon={Bed} message="Lodging enquiry management will be available here. Room types are displayed on the public website." />}
+      {page === 'tables' && <TableManagement />}
+      {page === 'table-orders' && <TableOrderDashboard />}
       {page === 'staff' && <StaffManagement />}
       {page === 'reports' && <SimpleAdmin title="Reports" icon={FileText} message="Detailed reports can be generated from the Revenue Analytics and Bills sections." />}
       {page === 'settings' && <SettingsAdmin />}

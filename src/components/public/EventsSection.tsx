@@ -113,7 +113,7 @@ export function EventsSection() {
                     </p>
 
                     <div className="mb-5">
-                      <p className={`text-[11px] font-bold uppercase tracking-wider mb-2 ${
+                      <p className={`text-sm font-bold tracking-wider mb-2 ${
                         isDark ? 'text-amber-300' : 'text-amber-800'
                       }`}>
                         {lang === 'mr' ? 'सुविधा:' : 'Amenities included:'}
@@ -148,9 +148,9 @@ export function EventsSection() {
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs shadow-md transition-colors"
+                        className="w-full py-3 rounded-md bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-sm shadow-lg transition-all flex items-center justify-center gap-2 mt-4"
                       >
-                        <MessageCircle size={14} /> {lang === 'mr' ? 'चौकशी करा' : 'Enquire'}
+                        <MessageCircle size={16} /> {lang === 'mr' ? 'चौकशी करा' : 'Enquire Now'}
                       </a>
                     </div>
                   </div>

@@ -3,6 +3,26 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontSize: {
+        'xs': ['12px', { lineHeight: '1.4' }],
+        'sm': ['13px', { lineHeight: '1.5' }],
+        'base': ['16px', { lineHeight: '1.6' }],
+        'lg': ['18px', { lineHeight: '1.6' }],
+        'xl': ['20px', { lineHeight: '1.7' }],
+        '2xl': ['24px', { lineHeight: '1.7' }],
+        '3xl': ['28px', { lineHeight: '1.8' }],
+        '4xl': ['32px', { lineHeight: '1.8' }],
+        '5xl': ['40px', { lineHeight: '1.2' }],
+        '6xl': ['48px', { lineHeight: '1.1' }],
+        '7xl': ['56px', { lineHeight: '1' }],
+      },
+      borderRadius: {
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'full': '9999px',
+      },
       colors: {
         forest: {
           50: '#f0f7f0',

@@ -182,7 +182,7 @@ export function Hero() {
             <Reveal delay={2}>
               <div className="flex items-center justify-center gap-2 sm:gap-3 max-w-xl mx-auto animate-hero-sub">
                 <div className={`h-[1px] flex-1 bg-gradient-to-r ${isDark ? 'from-transparent via-[#e6c278]/60 to-transparent' : 'from-transparent via-amber-600/60 to-transparent'}`} />
-                <p className={`font-serif text-sm sm:text-xl lg:text-2xl font-medium italic px-2 ${
+                <p className={`font-serif text-xs sm:text-lg lg:text-xl font-medium italic px-2 ${
                   isDark ? 'text-amber-200' : 'text-amber-900'
                 }`}>
                   {lang === 'mr' ? BUSINESS_INFO.taglineMarathi : BUSINESS_INFO.tagline}
@@ -207,16 +207,14 @@ export function Hero() {
               <div className="flex flex-wrap items-center justify-center gap-3 pt-2 animate-hero-cta">
                 <a
                   href="#menu"
-                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#e6c278] hover:bg-[#d9b263] text-[#160d07] font-extrabold text-xs sm:text-base tracking-wide transition-all duration-300 shadow-xl hover:scale-105"
+                  className="btn-gold flex items-center gap-2"
                 >
                   <Utensils size={18} /> {lang === 'mr' ? 'मेनू कार्ड पहा →' : 'Explore Now →'}
                 </a>
                 <a
                   href="#lodging"
-                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-full border font-bold text-xs sm:text-base tracking-wide backdrop-blur-sm transition-all duration-300 hover:scale-105 ${
-                    isDark
-                      ? 'border-[#e6c278]/40 text-[#fcf6e8] hover:bg-[#e6c278]/10'
-                      : 'border-amber-700/50 text-stone-900 hover:bg-amber-100/60'
+                  className={`btn-secondary flex items-center gap-2 ${
+                    isDark ? '' : 'border-amber-700/50 text-stone-900 hover:bg-amber-100/60'
                   }`}
                 >
                   <BedDouble size={18} className={isDark ? 'text-[#e6c278]' : 'text-amber-800'} /> {lang === 'mr' ? 'रूम्स पहा' : 'View Rooms'}

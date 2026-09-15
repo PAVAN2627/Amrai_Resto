@@ -1,4 +1,4 @@
-import type { MenuItem, Bill, BillItem, Review, GalleryImage, EventPackage, Room, BusinessSettings } from '@/types';
+import type { MenuItem, Bill, BillItem, Review, GalleryImage, EventPackage, Room, BusinessSettings, Table, TableOrder, TableOrderItem } from '@/types';
 
 export const mockSettings: BusinessSettings = {
   id: '1',
@@ -171,4 +171,127 @@ export const aboutSliderImages = [
   'https://images.pexels.com/photos/31217382/pexels-photo-31217382.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
   'https://images.pexels.com/photos/2291619/pexels-photo-2291619.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
   'https://images.pexels.com/photos/9716297/pexels-photo-9716297.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+];
+
+// Table Management Mock Data
+export const mockTables: Table[] = [
+  { id: 't1', table_number: '1', capacity: 2, qr_code: `${window?.location?.origin || ''}/table/t1`, status: 'available', created_at: '' },
+  { id: 't2', table_number: '2', capacity: 2, qr_code: `${window?.location?.origin || ''}/table/t2`, status: 'occupied', created_at: '' },
+  { id: 't3', table_number: '3', capacity: 4, qr_code: `${window?.location?.origin || ''}/table/t3`, status: 'available', created_at: '' },
+  { id: 't4', table_number: '4', capacity: 4, qr_code: `${window?.location?.origin || ''}/table/t4`, status: 'occupied', created_at: '' },
+  { id: 't5', table_number: '5', capacity: 6, qr_code: `${window?.location?.origin || ''}/table/t5`, status: 'available', created_at: '' },
+  { id: 't6', table_number: '6', capacity: 6, qr_code: `${window?.location?.origin || ''}/table/t6`, status: 'available', created_at: '' },
+  { id: 't7', table_number: '7', capacity: 8, qr_code: `${window?.location?.origin || ''}/table/t7`, status: 'occupied', created_at: '' },
+  { id: 't8', table_number: '8', capacity: 8, qr_code: `${window?.location?.origin || ''}/table/t8`, status: 'available', created_at: '' },
+];
+
+// Table Orders Mock Data
+export const mockTableOrders: TableOrder[] = [
+  {
+    id: 'to1',
+    table_id: 't2',
+    table_number: '2',
+    status: 'active',
+    customer_name: 'Rajesh Patil',
+    customer_mobile: '9876543210',
+    num_guests: 2,
+    special_notes: 'No onion, no garlic',
+    items: [
+      {
+        id: 'toi1',
+        order_id: 'to1',
+        menu_item_id: 'm1',
+        name: 'Paneer Tikka',
+        price: 240,
+        quantity: 1,
+        status: 'ready',
+        created_at: new Date(Date.now() - 10 * 60000).toISOString(),
+      },
+      {
+        id: 'toi2',
+        order_id: 'to1',
+        menu_item_id: 'm7',
+        name: 'Butter Chicken',
+        price: 320,
+        quantity: 1,
+        status: 'preparing',
+        created_at: new Date(Date.now() - 8 * 60000).toISOString(),
+      },
+    ],
+    subtotal: 560,
+    discount: 0,
+    tax: 100.8,
+    total: 660.8,
+    created_at: new Date(Date.now() - 15 * 60000).toISOString(),
+    completed_at: null,
+    paid_at: null,
+  },
+  {
+    id: 'to2',
+    table_id: 't4',
+    table_number: '4',
+    status: 'active',
+    customer_name: 'Sunita Deshmukh',
+    customer_mobile: '9823456789',
+    num_guests: 4,
+    special_notes: 'Extra spicy',
+    items: [
+      {
+        id: 'toi3',
+        order_id: 'to2',
+        menu_item_id: 'm5',
+        name: 'Chicken Biryani',
+        price: 280,
+        quantity: 2,
+        status: 'ready',
+        created_at: new Date(Date.now() - 20 * 60000).toISOString(),
+      },
+      {
+        id: 'toi4',
+        order_id: 'to2',
+        menu_item_id: 'm4',
+        name: 'Solkadhi',
+        price: 60,
+        quantity: 2,
+        status: 'served',
+        created_at: new Date(Date.now() - 18 * 60000).toISOString(),
+      },
+    ],
+    subtotal: 680,
+    discount: 0,
+    tax: 122.4,
+    total: 802.4,
+    created_at: new Date(Date.now() - 25 * 60000).toISOString(),
+    completed_at: null,
+    paid_at: null,
+  },
+  {
+    id: 'to3',
+    table_id: 't7',
+    table_number: '7',
+    status: 'active',
+    customer_name: 'Amit Kulkarni',
+    customer_mobile: '9970123456',
+    num_guests: 6,
+    special_notes: '',
+    items: [
+      {
+        id: 'toi5',
+        order_id: 'to3',
+        menu_item_id: 'm9',
+        name: 'Satara Special Veg Thali',
+        price: 260,
+        quantity: 3,
+        status: 'pending',
+        created_at: new Date(Date.now() - 5 * 60000).toISOString(),
+      },
+    ],
+    subtotal: 780,
+    discount: 0,
+    tax: 140.4,
+    total: 920.4,
+    created_at: new Date(Date.now() - 5 * 60000).toISOString(),
+    completed_at: null,
+    paid_at: null,
+  },
 ];

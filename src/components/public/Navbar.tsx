@@ -55,7 +55,7 @@ export function Navbar() {
               }`}>
                 {lang === 'mr' ? BUSINESS_INFO.nameMarathi : BUSINESS_INFO.name}
               </span>
-              <span className={`text-[10px] tracking-widest uppercase font-sans mt-0.5 ${
+              <span className={`text-xs tracking-widest uppercase font-sans mt-0.5 ${
                 isDark ? 'text-amber-200/70' : 'text-amber-800/80'
               }`}>
                 {lang === 'mr' ? 'शेंद्रे फाटा • सातारा NH4' : 'Shendre Phata • NH4 Satara'}

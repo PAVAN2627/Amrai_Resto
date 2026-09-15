@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   TreePalm, LogOut, LayoutDashboard, Utensils, Star, Image, Leaf,
   Receipt, BarChart3, TrendingUp, CreditCard, Users, PartyPopper,
-  Bed, UserCog, FileText, Settings, Menu as MenuIcon, X, Store
+  Bed, UserCog, FileText, Settings, Menu as MenuIcon, X, Store, QrCode
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { getGreeting } from '@/lib/constants';
@@ -27,6 +27,13 @@ const NAV_GROUPS = [
     items: [
       { id: 'new-bill', label: 'New POS Bill', icon: Store },
       { id: 'bills', label: 'Bill History', icon: Receipt },
+    ],
+  },
+  {
+    label: 'Table Ordering',
+    items: [
+      { id: 'tables', label: 'Manage Tables', icon: QrCode },
+      { id: 'table-orders', label: 'Live Orders', icon: LayoutDashboard },
     ],
   },
   {
@@ -64,6 +71,7 @@ const QUICK_NAV_ITEMS = [
   { id: 'specials', label: 'Specials', icon: Star },
   { id: 'new-bill', label: 'New POS', icon: Store },
   { id: 'bills', label: 'Bill History', icon: Receipt },
+  { id: 'table-orders', label: 'Table Orders', icon: QrCode },
   { id: 'revenue', label: 'Revenue', icon: BarChart3 },
   { id: 'customers', label: 'Customers', icon: Users },
   { id: 'staff', label: 'Staff', icon: UserCog },

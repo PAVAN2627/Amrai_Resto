@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
 import { Reveal } from '@/components/Reveal';
-import { Flame, Star, Leaf, Drumstick, Utensils } from 'lucide-react';
+import { Flame, Star, Leaf, Drumstick, Utensils, MessageCircle } from 'lucide-react';
 import { mockMenuItems } from '@/lib/mockData';
-import { formatCurrency } from '@/lib/constants';
+import { formatCurrency, BUSINESS_INFO, WHATSAPP_BASE } from '@/lib/constants';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
 
@@ -164,6 +164,21 @@ export function MenuSection() {
                         isDark ? 'text-stone-300/70' : 'text-stone-600'
                       }`}>{desc}</p>
                     </div>
+                  </div>
+
+                  <div className={`p-4 pt-0 border-t ${isDark ? 'border-amber-400/10' : 'border-stone-100'}`}>
+                    <a
+                      href={`${WHATSAPP_BASE}${BUSINESS_INFO.phones[0]}?text=${encodeURIComponent(
+                        lang === 'mr'
+                          ? `नमस्कार आमराई रिसॉर्ट, मला "${name}" बद्दल ऑर्डर/चौकशी करायची आहे.`
+                          : `Hello Aamrai Resort, I would like to order/enquire about "${name}".`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-2.5 rounded-md bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5 mt-3"
+                    >
+                      <MessageCircle size={14} /> {lang === 'mr' ? 'ऑर्डर चौकशी' : 'Order Enquiry'}
+                    </a>
                   </div>
                 </div>
               </Reveal>

@@ -125,9 +125,9 @@ export function LodgingSection() {
                       </div>
                       <a
                         href={`tel:${BUSINESS_INFO.lodgingPhone}`}
-                        className="inline-flex items-center gap-1 px-3 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs shadow-md transition-colors"
+                        className="w-full py-3 rounded-md bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-sm shadow-lg transition-all flex items-center justify-center gap-2"
                       >
-                        <Phone size={13} /> {lang === 'mr' ? 'कॉल करा' : 'Call'}
+                        <Phone size={16} /> {lang === 'mr' ? 'कॉल करा' : 'Call Now'}
                       </a>
                     </div>
                   </div>

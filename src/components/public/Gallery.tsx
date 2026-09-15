@@ -14,16 +14,18 @@ export function Gallery() {
   const isDark = theme === 'dark';
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const [displayCount, setDisplayCount] = useState(12);
 
   const images = useMemo(() => [...mockGalleryImages].sort((a, b) => a.sort_order - b.sort_order), []);
 
   const activeCategoryEn = CATEGORIES_EN[activeCategoryIndex];
 
   const filtered = activeCategoryEn === 'All' ? images : images.filter((img) => img.category === activeCategoryEn);
+  const displayedImages = filtered.slice(0, displayCount);
 
   const closeLightbox = () => setLightbox(null);
-  const nextImage = () => setLightbox((prev) => (prev === null ? null : (prev + 1) % filtered.length));
-  const prevImage = () => setLightbox((prev) => (prev === null ? null : (prev - 1 + filtered.length) % filtered.length));
+  const nextImage = () => setLightbox((prev) => (prev === null ? null : (prev + 1) % displayedImages.length));
+  const prevImage = () => setLightbox((prev) => (prev === null ? null : (prev - 1 + displayedImages.length) % displayedImages.length));
 
   return (
     <section id="gallery" className={`section-padding relative overflow-hidden border-t transition-colors duration-300 ${
@@ -79,11 +81,11 @@ export function Gallery() {
 
         {/* Gallery Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {filtered.map((img, idx) => (
+          {displayedImages.map((img, idx) => (
             <Reveal key={img.id} delay={((idx % 4) + 1) as 1 | 2 | 3 | 4}>
               <div
                 onClick={() => setLightbox(idx)}
-                className={`group relative rounded-2xl overflow-hidden cursor-pointer h-48 sm:h-64 shadow-xl border ${
+                className={`group relative rounded-lg overflow-hidden cursor-pointer h-48 sm:h-64 shadow-xl border ${
                   isDark ? 'border-amber-400/20 hover:border-amber-400/70' : 'border-amber-200/80 hover:border-amber-400'
                 }`}
               >
@@ -102,10 +104,33 @@ export function Gallery() {
             </Reveal>
           ))}
         </div>
+
+        {/* Load More Button */}
+        {displayCount < filtered.length && (
+          <Reveal delay={4}>
+            <div className="text-center mt-10">
+              <button
+                onClick={() => setDisplayCount(prev => prev + 12)}
+                className="btn-primary"
+              >
+                Load More Images ({filtered.length - displayCount} remaining)
+              </button>
+            </div>
+          </Reveal>
+        )}
+
+        {/* All Images Shown */}
+        {displayCount >= filtered.length && filtered.length > 12 && (
+          <Reveal delay={4}>
+            <p className={`text-center text-sm mt-8 italic ${isDark ? 'text-stone-400/60' : 'text-stone-500'}`}>
+              {lang === 'mr' ? 'सर्व फोटो दर्शविले' : 'All images shown'} ({filtered.length} {lang === 'mr' ? 'एकूण' : 'total'})
+            </p>
+          </Reveal>
+        )}
       </div>
 
       {/* Lightbox Modal */}
-      {lightbox !== null && filtered[lightbox] && (
+      {lightbox !== null && displayedImages[lightbox] && (
         <div className="fixed inset-0 z-50 bg-stone-950/95 flex items-center justify-center p-4">
           <button
             onClick={closeLightbox}
@@ -125,9 +150,9 @@ export function Gallery() {
           >
             <ChevronRight size={24} />
           </button>
-          <div className="max-w-4xl max-h-[80vh] overflow-hidden rounded-2xl border border-amber-400/30">
+          <div className="max-w-4xl max-h-[80vh] overflow-hidden rounded-lg border border-amber-400/30">
             <img
-              src={filtered[lightbox].url}
+              src={displayedImages[lightbox].url}
               alt="Aamrai Resort preview"
               className="w-full h-full object-contain max-h-[80vh]"
             />

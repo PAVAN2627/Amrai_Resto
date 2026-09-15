@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react';
-import { Search, Plus, Minus, Trash2, X, CreditCard, Smartphone, Banknote, Wallet, FileText, MessageCircle, Leaf, Drumstick, ShoppingBag } from 'lucide-react';
+import { Search, Plus, Minus, Trash2, X, CreditCard, Smartphone, Banknote, Wallet, FileText, MessageCircle, Leaf, Drumstick, ShoppingBag, LayoutGrid } from 'lucide-react';
 import type { MenuItem, CartItem, Bill, BillItem } from '@/types';
 import { formatCurrency, validateIndianMobile, formatWhatsAppMobile, WHATSAPP_BASE } from '@/lib/constants';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { downloadBillPDF, generateBillPDF } from '@/lib/pdf';
 import { sendAutoWhatsAppBillPDF } from '@/lib/whatsappService';
-import { mockMenuItems, mockSettings, mockBills } from '@/lib/mockData';
+import { mockMenuItems, mockSettings, mockBills, mockTableOrders } from '@/lib/mockData';
 
 const PAYMENT_METHODS = [
   { id: 'cash', label: 'Cash', icon: Banknote },
@@ -28,6 +28,8 @@ export function NewBill({ onBillSaved }: { onBillSaved: () => void }) {
   const [paymentMethod, setPaymentMethod] = useState<'cash' | 'upi' | 'card' | 'other'>('cash');
   const [discount, setDiscount] = useState('');
   const [saving, setSaving] = useState(false);
+  const [showTableOrders, setShowTableOrders] = useState(false);
+  const [selectedTableOrder, setSelectedTableOrder] = useState<typeof mockTableOrders[0] | null>(null);
   const { user } = useAuth();
   const { showToast } = useToast();
   const settings = mockSettings;
@@ -156,82 +158,149 @@ export function NewBill({ onBillSaved }: { onBillSaved: () => void }) {
     setShowCheckout(false);
   };
 
+  const loadTableOrder = (order: typeof mockTableOrders[0]) => {
+    setSelectedTableOrder(order);
+    setCustomerName(order.customer_name);
+    setCustomerMobile(order.customer_mobile);
+    setTableNumber(order.table_number);
+    setNumGuests(order.num_guests.toString());
+    setSpecialNotes(order.special_notes);
+    
+    const tableOrderCart: CartItem[] = order.items.map((item) => {
+      const menuItem = mockMenuItems.find((m) => m.id === item.menu_item_id);
+      return {
+        menuItem: menuItem || { ...item, id: item.menu_item_id, category: '', is_veg: true, is_available: true, is_special: false, is_featured: false, is_bar_item: false, sort_order: 0, created_at: '', updated_at: '' },
+        quantity: item.quantity,
+      };
+    });
+    setCart(tableOrderCart);
+    setShowTableOrders(false);
+  };
+
   return (
     <div className="flex flex-col lg:flex-row h-[calc(100vh-120px)] text-stone-100">
       <div className="flex-1 overflow-y-auto p-4">
-        <div className="mb-4">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-amber-400" size={20} />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search dish or category..."
-              className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-amber-400/30 bg-stone-900 text-stone-100 placeholder:text-stone-500 focus:border-amber-400 focus:outline-none text-lg font-medium shadow-inner"
-              autoFocus
-            />
-          </div>
-        </div>
-
-        <div className="flex gap-2 mb-4 overflow-x-auto scrollbar-hide pb-1">
-          {categories.map((cat) => (
+        {/* Search Bar with Table Orders Toggle */}
+        <div className="mb-4 space-y-2">
+          <div className="flex gap-2">
+            <div className="flex-1 relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-amber-400" size={20} />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search dish or category..."
+                className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-amber-400/30 bg-stone-900 text-stone-100 placeholder:text-stone-500 focus:border-amber-400 focus:outline-none text-lg font-medium shadow-inner"
+                autoFocus
+              />
+            </div>
             <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
-                activeCategory === cat
-                  ? 'bg-amber-400 text-stone-950 shadow-md scale-105'
-                  : 'bg-stone-900 text-stone-300 hover:bg-stone-800 border border-amber-400/20'
+              onClick={() => setShowTableOrders(!showTableOrders)}
+              className={`px-4 py-3.5 rounded-2xl border font-bold text-sm transition-all flex items-center gap-2 ${
+                showTableOrders
+                  ? 'bg-blue-600 text-white border-blue-600 shadow-lg'
+                  : 'bg-stone-900 text-amber-300 border-amber-400/30 hover:border-amber-400'
               }`}
             >
-              {cat}
+              <LayoutGrid size={18} /> Table Orders ({mockTableOrders.filter((o) => o.status === 'active').length})
             </button>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {filtered.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => addToCart(item)}
-              className="group rounded-xl overflow-hidden bg-stone-900 border border-amber-400/20 text-left hover:shadow-xl hover:border-amber-400/60 transition-all duration-300 hover:-translate-y-0.5"
-            >
-              <div className="relative h-24 overflow-hidden">
-                <img src={item.image_url} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
-                <span className={`absolute top-1.5 left-1.5 inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold ${
-                  item.is_veg ? 'bg-emerald-600 text-white' : 'bg-red-700 text-white'
-                }`}>
-                  {item.is_veg ? 'Veg' : 'Non-Veg'}
-                </span>
-              </div>
-              <div className="p-2.5">
-                <p className="font-bold text-amber-100 text-xs sm:text-sm leading-tight line-clamp-1 group-hover:text-amber-300">{item.name}</p>
-                <div className="flex items-center justify-between mt-1.5">
-                  <span className="text-amber-400 font-extrabold text-sm sm:text-base">{formatCurrency(item.price)}</span>
-                  <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-400 text-stone-950 group-hover:bg-amber-300 transition-colors font-bold">
-                    <Plus size={14} />
-                  </span>
-                </div>
-              </div>
-            </button>
-          ))}
-        </div>
-
-        {filtered.length === 0 && (
-          <div className="text-center py-20 text-stone-500">
-            <Search size={48} className="mx-auto mb-3 opacity-30" />
-            <p>No dishes found</p>
           </div>
+        </div>
+
+        {showTableOrders ? (
+          // Table Orders List
+          <div className="space-y-3">
+            <h3 className="font-bold text-amber-100 px-2">Active Table Orders</h3>
+            {mockTableOrders
+              .filter((o) => o.status === 'active')
+              .map((order) => (
+                <div key={order.id} className="bg-stone-900 border border-amber-400/20 rounded-lg p-3 hover:border-amber-400/50 transition-all">
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <p className="font-bold text-amber-100">Table {order.table_number}</p>
+                      <p className="text-xs text-stone-400">{order.customer_name} • {order.items.length} items</p>
+                    </div>
+                    <span className="text-amber-400 font-bold text-sm">{formatCurrency(order.total)}</span>
+                  </div>
+                  <div className="text-xs text-stone-400 mb-3 line-clamp-1">
+                    {order.items.map((i) => i.name).join(', ')}
+                  </div>
+                  <button
+                    onClick={() => loadTableOrder(order)}
+                    className="w-full py-2 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-colors"
+                  >
+                    Load Order to Edit
+                  </button>
+                </div>
+              ))}
+            {mockTableOrders.filter((o) => o.status === 'active').length === 0 && (
+              <p className="text-center text-stone-500 py-8">No active table orders</p>
+            )}
+          </div>
+        ) : (
+          // Menu Grid
+          <>
+            <div className="flex gap-2 mb-4 overflow-x-auto scrollbar-hide pb-1">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+                    activeCategory === cat
+                      ? 'bg-amber-400 text-stone-950 shadow-md scale-105'
+                      : 'bg-stone-900 text-stone-300 hover:bg-stone-800 border border-amber-400/20'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {filtered.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => addToCart(item)}
+                  className="group rounded-xl overflow-hidden bg-stone-900 border border-amber-400/20 text-left hover:shadow-xl hover:border-amber-400/60 transition-all duration-300 hover:-translate-y-0.5"
+                >
+                  <div className="relative h-24 overflow-hidden">
+                    <img src={item.image_url} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+                    <span className={`absolute top-1.5 left-1.5 inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold ${
+                      item.is_veg ? 'bg-emerald-600 text-white' : 'bg-red-700 text-white'
+                    }`}>
+                      {item.is_veg ? 'Veg' : 'Non-Veg'}
+                    </span>
+                  </div>
+                  <div className="p-2.5">
+                    <p className="font-bold text-amber-100 text-xs sm:text-sm leading-tight line-clamp-1 group-hover:text-amber-300">{item.name}</p>
+                    <div className="flex items-center justify-between mt-1.5">
+                      <span className="text-amber-400 font-extrabold text-sm sm:text-base">{formatCurrency(item.price)}</span>
+                      <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-400 text-stone-950 group-hover:bg-amber-300 transition-colors font-bold">
+                        <Plus size={14} />
+                      </span>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            {filtered.length === 0 && (
+              <div className="text-center py-20 text-stone-500">
+                <Search size={48} className="mx-auto mb-3 opacity-30" />
+                <p>No dishes found</p>
+              </div>
+            )}
+          </>
         )}
       </div>
 
       <div className="lg:w-96 bg-stone-900 border-t lg:border-t-0 lg:border-l border-amber-400/20 flex flex-col max-h-[50vh] lg:max-h-none shadow-2xl">
         <div className="p-4 border-b border-amber-400/20 flex items-center justify-between">
           <h3 className="font-serif text-lg text-amber-100 font-bold flex items-center gap-2">
-            <ShoppingBag size={20} className="text-amber-400" /> Current Bill
+            <ShoppingBag size={20} className="text-amber-400" /> {selectedTableOrder ? `Table ${selectedTableOrder.table_number}` : 'Current Bill'}
           </h3>
           {cart.length > 0 && (
-            <button onClick={resetForm} className="text-xs text-red-400 hover:text-red-300 font-bold">Clear All</button>
+            <button onClick={() => { resetForm(); setSelectedTableOrder(null); }} className="text-xs text-red-400 hover:text-red-300 font-bold">Clear All</button>
           )}
         </div>
 

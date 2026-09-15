@@ -17,6 +17,39 @@
 }
 
 @layer components {
+  /* Text Color Utilities */
+  .text-primary { @apply text-stone-900 dark:text-amber-50; }
+  .text-primary-light { @apply text-stone-700 dark:text-amber-100; }
+  .text-secondary { @apply text-stone-600 dark:text-stone-300/80; }
+  .text-muted { @apply text-stone-500 dark:text-stone-400/70; }
+  .text-accent { @apply text-amber-700 dark:text-amber-400; }
+  .text-accent-light { @apply text-amber-800 dark:text-amber-300; }
+  .text-success { @apply text-emerald-600 dark:text-emerald-500; }
+  .text-danger { @apply text-red-700 dark:text-red-600; }
+  .text-warning { @apply text-orange-600 dark:text-orange-500; }
+  .text-inverse { @apply text-white dark:text-stone-950; }
+
+  /* Button Styles - 5 Consolidated Variants */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-amber-400 text-stone-950 font-bold text-sm tracking-wide transition-all duration-300 hover:bg-amber-300 hover:shadow-lg hover:shadow-amber-400/30 hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-amber-400/40 text-amber-100 font-medium text-sm tracking-wide transition-all duration-300 hover:bg-amber-400/10 hover:border-amber-400/70 hover:-translate-y-0.5;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full text-stone-700 font-medium text-xs tracking-wide transition-all duration-300 hover:bg-stone-200 dark:text-stone-300 dark:hover:bg-stone-800;
+  }
+
+  .btn-sm {
+    @apply inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs shadow-md transition-colors;
+  }
+
+  .btn-action {
+    @apply inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-md bg-stone-900 text-amber-300 hover:text-amber-100 border border-amber-400/30 font-bold text-xs transition-colors;
+  }
+
   .reveal {
     opacity: 0;
     transform: translateY(40px);

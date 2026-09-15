@@ -136,3 +136,42 @@ export interface CartItem {
   menuItem: MenuItem;
   quantity: number;
 }
+
+export interface Table {
+  id: string;
+  table_number: string;
+  capacity: number;
+  qr_code: string; // QR code data/URL
+  status: 'available' | 'occupied';
+  created_at: string;
+}
+
+export interface TableOrder {
+  id: string;
+  table_id: string;
+  table_number: string;
+  status: 'active' | 'completed' | 'pending_payment';
+  customer_name: string;
+  customer_mobile: string;
+  num_guests: number;
+  special_notes: string;
+  items: TableOrderItem[];
+  subtotal: number;
+  discount: number;
+  tax: number;
+  total: number;
+  created_at: string;
+  completed_at: string | null;
+  paid_at: string | null;
+}
+
+export interface TableOrderItem {
+  id: string;
+  order_id: string;
+  menu_item_id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  status: 'pending' | 'preparing' | 'ready' | 'served';
+  created_at: string;
+}
