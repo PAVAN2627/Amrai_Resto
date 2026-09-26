@@ -300,68 +300,35 @@ export function Hero() {
         </div>
       </div>
 
-      {/* BOTTOM PEDESTAL BAR: Clean Mobile & Desktop Layout */}
-      <div className="relative z-10 container-max px-4 sm:px-6 lg:px-8 mt-5 sm:mt-6">
+      {/* BOTTOM PEDESTAL BAR: Clean Responsive 5-Column Layout */}
+      <div className="relative z-10 container-max px-2.5 sm:px-6 lg:px-8 mt-4 sm:mt-6">
         <Reveal delay={3}>
           <div className="max-w-6xl mx-auto">
-            {/* Mobile View: Clean Borderless Horizontal Scroll Bar (No tall enclosed square box) */}
-            <div className="sm:hidden flex items-center gap-2.5 overflow-x-auto pb-3 px-1 scrollbar-none snap-x">
-              {pedestalFeatures.map((item) => (
-                <div
-                  key={item.titleEn}
-                  className={`snap-center flex-shrink-0 min-w-[115px] flex flex-col items-center text-center p-3 rounded-2xl border shadow-md transition-all ${
-                    isDark
-                      ? 'bg-[#23150c]/95 border-[#e6c278]/40 text-[#fcf6e8]'
-                      : 'bg-white border-amber-300/70 text-[#23150c]'
-                  }`}
-                >
-                  <div className="relative mb-2">
-                    <div className={`w-10 h-10 rounded-full border flex items-center justify-center shadow-md ${
-                      isDark ? 'bg-[#160d07] border-[#e6c278]/50 text-[#e6c278]' : 'bg-amber-50 border-amber-400 text-amber-800'
-                    }`}>
-                      <item.icon size={18} />
-                    </div>
-                    <div className={`absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-1.5 rounded-[100%] blur-sm pointer-events-none ${
-                      isDark ? 'bg-[#e6c278]/40' : 'bg-amber-400/40'
-                    }`} />
-                  </div>
-
-                  <h3 className={`font-serif text-xs font-extrabold leading-tight ${isDark ? 'text-amber-100' : 'text-stone-900'}`}>
-                    {lang === 'mr' ? item.titleMr : item.titleEn}
-                  </h3>
-                  <p className={`text-[10px] mt-0.5 font-semibold leading-tight ${isDark ? 'text-stone-300/80' : 'text-stone-600'}`}>
-                    {lang === 'mr' ? item.subMr : item.subEn}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Desktop View: Sleek 5-Column Divided Card Bar */}
-            <div className={`hidden sm:block rounded-3xl p-4 shadow-2xl backdrop-blur-md border ${
+            <div className={`rounded-2xl sm:rounded-3xl p-2 sm:p-4 shadow-xl sm:shadow-2xl backdrop-blur-md border ${
               isDark ? 'bg-[#23150c]/90 border-[#e6c278]/35' : 'bg-white/95 border-amber-300/70'
             }`}>
-              <div className={`grid sm:grid-cols-3 lg:grid-cols-5 gap-2 lg:gap-0 lg:divide-x ${
+              <div className={`grid grid-cols-5 gap-1 sm:gap-2 lg:gap-0 lg:divide-x ${
                 isDark ? 'lg:divide-[#e6c278]/20' : 'lg:divide-amber-200'
               }`}>
                 {pedestalFeatures.map((item) => (
-                  <div key={item.titleEn} className="flex flex-col items-center text-center p-2 group">
-                    <div className="relative mb-2">
-                      <div className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
+                  <div key={item.titleEn} className="flex flex-col items-center text-center p-1 sm:p-2 group">
+                    <div className="relative mb-1 sm:mb-2">
+                      <div className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full border flex items-center justify-center transition-all ${
                         isDark
-                          ? 'bg-[#160d07] border-[#e6c278]/40 shadow-[0_0_20px_rgba(230,194,120,0.3)] group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(230,194,120,0.6)]'
+                          ? 'bg-[#160d07] border-[#e6c278]/40 shadow-[0_0_15px_rgba(230,194,120,0.25)] group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(230,194,120,0.6)]'
                           : 'bg-amber-50 border-amber-300 shadow-sm group-hover:scale-110'
                       }`}>
-                        <item.icon size={20} className={isDark ? 'text-[#e6c278] group-hover:text-amber-200' : 'text-amber-800'} />
+                        <item.icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isDark ? 'text-[#e6c278] group-hover:text-amber-200' : 'text-amber-800'}`} />
                       </div>
-                      <div className={`absolute -bottom-1 left-1/2 -translate-x-1/2 w-9 h-2 rounded-[100%] blur-sm pointer-events-none ${
+                      <div className={`absolute -bottom-1 left-1/2 -translate-x-1/2 w-6 sm:w-9 h-1 sm:h-2 rounded-[100%] blur-sm pointer-events-none ${
                         isDark ? 'bg-[#e6c278]/35' : 'bg-amber-400/30'
                       }`} />
                     </div>
 
-                    <h3 className={`font-serif text-sm font-extrabold leading-tight ${isDark ? 'text-amber-100' : 'text-stone-900'}`}>
+                    <h3 className={`font-serif text-[10.5px] sm:text-sm font-extrabold leading-tight ${isDark ? 'text-amber-100' : 'text-stone-900'}`}>
                       {lang === 'mr' ? item.titleMr : item.titleEn}
                     </h3>
-                    <p className={`text-xs mt-0.5 font-bold leading-tight ${isDark ? 'text-stone-300/80' : 'text-stone-600'}`}>
+                    <p className={`text-[9px] sm:text-xs mt-0.5 font-semibold sm:font-bold leading-tight ${isDark ? 'text-stone-300/80' : 'text-stone-600'}`}>
                       {lang === 'mr' ? item.subMr : item.subEn}
                     </p>
                   </div>
@@ -370,7 +337,6 @@ export function Hero() {
             </div>
           </div>
         </Reveal>
-
       </div>
     </section>
   );
